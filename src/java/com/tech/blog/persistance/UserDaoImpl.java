@@ -17,17 +17,21 @@ import java.sql.SQLException;
  */
 public class UserDaoImpl implements IUserDao {
 
-    private Connection con=null;
+    
+  Connection con=null;
+    PreparedStatement ps=null;
+    ResultSet rs=null;
 
    
 
     // to insert user to data base:
     public boolean saveUser(User user) {
-         con = JdbcUtil.getJdbcConnection();
+         
         boolean f = false;
         try {
+            con = JdbcUtil.getJdbcConnection();
             String query = "insert into users(name, email, password, gender, about) values(?,?,?,?,?)";
-            PreparedStatement ps =con.prepareStatement(query);
+            ps =con.prepareStatement(query);
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getPassword());
@@ -37,47 +41,63 @@ public class UserDaoImpl implements IUserDao {
             f = true;
         } catch (SQLException e) {
             System.out.println("Error : " + e.getMessage());
+        }finally{
+            try{
+            JdbcUtil.cleanUp(con, ps, rs);
+            }catch(Exception e){
+                e.printStackTrace();
+                
+            }
         }
         return f;
     }
 
     // get user by email and password
     public User getUserByEmailAndPassword(String email, String password) {
-         con = JdbcUtil.getJdbcConnection();
+        
         User user = null;
         try {
+             con = JdbcUtil.getJdbcConnection();
             String query = "select * from users where email=? and password=?";
 
-            PreparedStatement ps = con.prepareStatement(query);
+            ps = con.prepareStatement(query);
             ps.setString(1, email);
             ps.setString(2, password);
 
-            ResultSet set = ps.executeQuery();
-            if (set.next()) {
+            rs = ps.executeQuery();
+            if (rs.next()) {
                 user = new User();
-                String name = set.getString("name");
+                String name = rs.getString("name");
                 user.setName(name);
-                user.setId(set.getInt("id"));
-                user.setEmail(set.getString("email"));
-                user.setAbout(set.getString("about"));
-                user.setGender(set.getString("gender"));
-                user.setPassword(set.getString("password"));
-                user.setProfile(set.getString("profile"));
+                user.setId(rs.getInt("id"));
+                user.setEmail(rs.getString("email"));
+                user.setAbout(rs.getString("about"));
+                user.setGender(rs.getString("gender"));
+                user.setPassword(rs.getString("password"));
+                user.setProfile(rs.getString("profile"));
             }
         } catch (SQLException e) {
             System.out.println("Error : " + e.getMessage());
+        }finally{
+            try{
+            JdbcUtil.cleanUp(con, ps, rs);
+            }catch(Exception e){
+                e.printStackTrace();
+                
+            }
         }
         return user;
     }
 
     // Update user by userId
     public boolean updateUser(User user) {
-         con = JdbcUtil.getJdbcConnection();
+         
 
         boolean f = false;
         try {
+            con = JdbcUtil.getJdbcConnection();
             String query = "update users set name=?, email=?, password=?, gender=?, about=?, profile=? where id=?";
-            PreparedStatement ps = con.prepareStatement(query);
+            ps = con.prepareStatement(query);
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getPassword());
@@ -91,32 +111,47 @@ public class UserDaoImpl implements IUserDao {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error : " + e.getMessage());
+        }finally{
+            try{
+            JdbcUtil.cleanUp(con, ps, rs);
+            }catch(Exception e){
+                e.printStackTrace();
+                
+            }
         }
         return f;
     }
 
     public User getUserByUserId(Integer userId) {
-         con = JdbcUtil.getJdbcConnection();
+         
         User user = null;
         try {
+            con = JdbcUtil.getJdbcConnection();
             String query = "select * from users where id=?";
-            PreparedStatement ps = this.con.prepareStatement(query);
+             ps =con.prepareStatement(query);
             ps.setInt(1, userId);
-            ResultSet set = ps.executeQuery();
-            while (set.next()) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
                 user = new User();
-                String name = set.getString("name");
+                String name = rs.getString("name");
                 user.setName(name);
-                user.setId(set.getInt("id"));
-                user.setEmail(set.getString("email"));
-                user.setAbout(set.getString("about"));
-                user.setGender(set.getString("gender"));
-                user.setPassword(set.getString("password"));
-                user.setProfile(set.getString("profile"));
+                user.setId(rs.getInt("id"));
+                user.setEmail(rs.getString("email"));
+                user.setAbout(rs.getString("about"));
+                user.setGender(rs.getString("gender"));
+                user.setPassword(rs.getString("password"));
+                user.setProfile(rs.getString("profile"));
             }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error : " + e.getMessage());
+        }finally{
+            try{
+            JdbcUtil.cleanUp(con, ps, rs);
+            }catch(Exception e){
+                e.printStackTrace();
+                
+            }
         }
         return user;
     }

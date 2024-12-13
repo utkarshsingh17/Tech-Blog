@@ -73,7 +73,7 @@ public class EditServlet extends HttpServlet {
 
                 String path = request.getServletContext().getRealPath("/") + "pics" + File.separator + user.getProfile();
                 // delete file
-                String pathOldFile = request.getRealPath("/") + "pics" + File.separator + oldFile;
+                String pathOldFile = request.getServletContext().getRealPath("/") + "pics" + File.separator + oldFile;
                 if (!oldFile.equals("default-user.jpg")) {
                     Helper.deleteFile(pathOldFile);
                 }

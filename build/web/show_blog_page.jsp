@@ -204,46 +204,67 @@
     </div>
     <!--end of profile model-->
     <!--main content of body-->
-    <div class="container">
-        <div class="row my-4">
-            <div class="col-md-8 offset-md-2">
-                <div class="card">
-                    <div class="card-header primay_background text-white">
-                        <h4 class="post-title"><%= p.getpTitle()%></h4>
-                    </div>
-                    <div class="card-body">
-                        <img class="card-img-top my-2" src="blog_pics/<%= p.getpPic()%>" alt="Card image cap" style="height: 250px" />
-                        <div class="row my-3 row-user">
-                            <div class="col-md-8">
-                                <% 
-                                    IUserService userService=UserServiceFactory.getUserService();
-                                    %>
-                                <p class="post-user-infor"><a href="#!"><%= userService.getUserByUserId(p.getUserId()).getName()%> </a> has posted :</p>
-                            </div>
-                        </div>
-                        <p class="post-content"><%= p.getpContent()%></p>
-                        <br>
-                        <br>
-                        <div class="post-code">
-                            <pre><%= p.getpCode()%></pre>
+   <!-- Main content of body -->
+<div class="container" style="font-family: Arial, sans-serif; margin-top: 20px;">
+    <div class="row my-4">
+        <div class="col-md-8 offset-md-2">
+            <div class="card" style="border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <div class="card-header" style="background-color: #007bff; color: white; padding: 10px 20px; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                    <h4 class="post-title" style="margin: 0; font-weight: bold;"><%= p.getpTitle() %></h4>
+                </div>
+                <div class="card-body" style="background-color: #f8f9fa; padding: 20px;">
+                    <img class="card-img-top my-2" src="pics/<%= p.getpPic() %>" alt="Card image cap" 
+                        style="height: 250px; width: 100%; object-fit: cover; border-radius: 5px; margin-bottom: 15px;" />
+                    <div class="row my-3 row-user">
+                        <div class="col-md-8">
+                            <% IUserService userService = UserServiceFactory.getUserService(); %>
+                            <p class="post-user-info" style="font-size: 16px; margin: 0;">
+                                <a href="#!" style="text-decoration: none; color: #007bff; font-weight: bold;">
+                                    <%= userService.getUserByUserId(p.getUserId()).getName() %>
+                                </a> 
+                                has posted:
+                            </p>
                         </div>
                     </div>
-                    <div class="card-footer primay_background">
-                        <%
-                            ILikeService likeService=LikeServiceFactory.getLikeService();
-                            
-                        %>
-                        <a href="#!" onclick="doLike(<%= p.getpId()%>, <%=user.getId()%>)" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-o-up"></i><span class="like-counter" > <%= likeService.countLikeOnPost(p.getpId())%></span></a>
+                    <p class="post-content" style="font-size: 16px; line-height: 1.6; color: #333; margin-top: 15px;">
+                        <%= p.getpContent() %>
+                    </p>
+                    <br>
+                    <div class="post-code" style="background-color: #e9ecef; padding: 10px; border-radius: 5px; overflow-x: auto;">
+                        <pre style="font-size: 14px; line-height: 1.4; color: #212529;"><%= p.getpCode() %></pre>
+                    </div>
+                </div>
+                <div class="card-footer" style="background-color: #007bff; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <%
+                        ILikeService likeService = LikeServiceFactory.getLikeService();
+                    %>
+                    <a href="#!" onclick="doLike(<%= p.getpId() %>, <%= user.getId() %>)" 
+                        class="btn btn-outline-light btn-sm" 
+                        style="border: 1px solid white; color: white; padding: 5px 10px; border-radius: 5px;">
+                        <i class="fa fa-thumbs-o-up"></i>
+                        <span class="like-counter" style="margin-left: 5px;"> 
+                            <%= likeService.countLikeOnPost(p.getpId()) %>
+                        </span>
+                    </a>
 
-                        <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-commenting-o"></i><span> 20</span></a>
-                    </div>
-                    <div class="card-footer">
-                        <div class="fb-comments" data-href="http://localhost:9494/TechBlog/show_blog_page.jsp?post_id=<%= p.getpId() %>" data-width="" data-numposts="5"></div>
-                    </div>
+                    <a href="#!" class="btn btn-outline-light btn-sm" 
+                        style="border: 1px solid white; color: white; padding: 5px 10px; border-radius: 5px;">
+                        <i class="fa fa-commenting-o"></i>
+                        <span style="margin-left: 5px;">20</span>
+                    </a>
+                </div>
+                <div class="card-footer" style="background-color: #f8f9fa; padding: 10px 20px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                    <div class="fb-comments" 
+                         data-href="http://localhost:9494/TechBlog/show_blog_page.jsp?post_id=<%= p.getpId() %>" 
+                         data-width="" 
+                         data-numposts="5" 
+                         style="width: 100%;"></div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
     <!--end of main content of the body-->
     <!--add post model-->
     <!-- Button trigger modal -->

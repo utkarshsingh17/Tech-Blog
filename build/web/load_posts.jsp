@@ -31,7 +31,7 @@
     %>
     <div class="col-md-6 mt-2">
         <div class="card">
-            <img style="height: 150px" class="card-img-top" src="blog_pics/<%= p.getpPic()%>" alt="Card image cap">
+            <img style="height: 150px" class="card-img-top" src="pics/<%= p.getpPic()%>" alt="Card image cap">
             <div class="card-body">
                 <b><%= p.getpTitle()%></b>
                 <p><%= p.getpContent()%></p>

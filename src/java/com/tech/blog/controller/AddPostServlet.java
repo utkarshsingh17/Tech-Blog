@@ -58,7 +58,7 @@ public class AddPostServlet extends HttpServlet {
             IPostService postService=PostServiceFactory.getPostService();
             if(postService.savePost(post))
             {
-                String path = request.getServletContext().getRealPath("/") + "blog_pics" + File.separator + part.getSubmittedFileName();
+                String path = request.getServletContext().getRealPath("/") + "pics" + File.separator + part.getSubmittedFileName();
                 Helper.saveFile(part.getInputStream(), path);
                 out.println("Done");
             }
