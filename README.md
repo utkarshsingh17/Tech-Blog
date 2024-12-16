@@ -12,8 +12,6 @@ A Tech Blog application that allows users to register, create blog posts, and in
 
 ## Database Description
 
-## Database Schema
-
 The database for the Tech-Blog project consists of several tables that store information related to users, posts, likes, and contact information. Below are the key tables in the database:
 
 ### Tables
